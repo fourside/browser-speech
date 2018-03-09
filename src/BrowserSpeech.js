@@ -26,6 +26,7 @@ class Synthesiser extends React.Component {
         <Range name="Rate"/>
         <Range name="Pitch"/>
         <VoiceSelect />
+        <PlayButton />
       </form>
     );
   }
@@ -60,6 +61,15 @@ class VoiceSelect extends React.Component {
         <select>
           <option>voice supported by your browser</option>
         </select>
+      </div>
+    );
+  }
+}
+class PlayButton extends React.Component {
+  render() {
+    return (
+      <div className="form-group">
+        <button className="form-control" type="submit">Play</button>
       </div>
     );
   }
