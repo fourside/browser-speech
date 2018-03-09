@@ -35,7 +35,7 @@ class Message extends React.Component {
   render() {
     return (
       <div className="form-group">
-        <label for="message"> Message </label>
+        <label htmlFor="message"> Message </label>
           <textarea id="message" className="form-control" placeholder="type what you want to let me say" />
       </div>
     );
@@ -46,8 +46,8 @@ class Range extends React.Component {
     const name = this.props.name;
     return (
       <div className="form-group">
-        <label for="{name}"> {name} </label>
-        <input type="range" id="{name}" className="form-control" />
+        <label htmlFor={name}> {name} </label>
+        <input type="range" id={name} className="form-control" />
       </div>
     );
   }
@@ -56,7 +56,7 @@ class VoiceSelect extends React.Component {
   render() {
     return (
       <div className="form-group">
-        <label for="voice"> Voice </label>
+        <label htmlFor="voice"> Voice </label>
         <select>
           <option>voice supported by your browser</option>
         </select>
