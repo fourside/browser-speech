@@ -32,11 +32,18 @@ class Synthesiser extends React.Component {
     this.voices = undefined; // TODO fetch voices and setState voice
   }
 
+  handleMessageChange(e) {
+    e.preventDefault();
+    console.log(e.target.value);
+    this.setState({message: [e.target.value]});
+  }
+
   render() {
     return (
       <form>
         <h4 className="lead description">Enter message and push play button.</h4>
-        <Message message={this.state.message} />
+
+        <Message message={this.state.message} onMessageChange={(e) => this.handleMessageChange(e)} />
         <Range name="Rate"  min="0.5" max="2" step="0.1" value={this.state.rate} />
         <Range name="Pitch" min="0"   max="2 "step="0.1" value={this.state.pitch} />
         <VoiceSelect voices={this.voices} voice={this.state.voice} />
@@ -48,10 +55,13 @@ class Synthesiser extends React.Component {
 
 class Message extends React.Component {
   render() {
+    const message = this.props.message;
     return (
       <div className="form-group">
         <label htmlFor="message"> Message </label>
-          <textarea id="message" className="form-control" placeholder="type what you want to let me say" />
+          <textarea id="message" className="form-control" placeholder="type what you want to let me say" 
+            value={message} onChange={(e) => this.props.onMessageChange(e)}
+          />
       </div>
     );
   }
