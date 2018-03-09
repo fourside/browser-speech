@@ -4,9 +4,14 @@ import ReactDOM from 'react-dom';
 class BrowserSpeech extends React.Component {
   render() {
     return (
-      <h1>hello browser speech</h1>
+      <Header />
     )
   }
+}
+function Header(props) {
+  return (
+    <header><h1>Browser Speech</h1></header>
+  );
 }
 
 export default function() {
