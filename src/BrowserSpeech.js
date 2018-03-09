@@ -34,8 +34,15 @@ class Synthesiser extends React.Component {
 
   handleMessageChange(e) {
     e.preventDefault();
-    console.log(e.target.value);
     this.setState({message: [e.target.value]});
+  }
+  handleRateChange(e) {
+    e.preventDefault();
+    this.setState({rate: [e.target.value]});
+  }
+  handlePitchChange(e) {
+    e.preventDefault();
+    this.setState({pitch: [e.target.value]});
   }
 
   render() {
@@ -43,9 +50,14 @@ class Synthesiser extends React.Component {
       <form>
         <h4 className="lead description">Enter message and push play button.</h4>
 
-        <Message message={this.state.message} onMessageChange={(e) => this.handleMessageChange(e)} />
-        <Range name="Rate"  min="0.5" max="2" step="0.1" value={this.state.rate} />
-        <Range name="Pitch" min="0"   max="2 "step="0.1" value={this.state.pitch} />
+        <Message
+          message={this.state.message} onMessageChange={(e) => this.handleMessageChange(e)} />
+        <Range
+          name="Rate"  min="0.5" max="2" step="0.1" value={this.state.rate}
+          onRangeChange={(e) => this.handleRateChange(e)} />
+        <Range
+          name="Pitch" min="0"   max="2" step="0.1" value={this.state.pitch}
+          onRangeChange={(e) => this.handlePitchChange(e)} />
         <VoiceSelect voices={this.voices} voice={this.state.voice} />
         <PlayButton />
       </form>
@@ -76,7 +88,8 @@ class Range extends React.Component {
     return (
       <div className="form-group">
         <label htmlFor={name}> {name} </label> {value}
-        <input type="range" id={name} min={min} max={max} step={step} value={value} className="form-control" />
+        <input type="range" id={name} min={min} max={max} step={step} value={value} className="form-control"
+          onChange={(e) => this.props.onRangeChange(e)}/>
       </div>
     );
   }
