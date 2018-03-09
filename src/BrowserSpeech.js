@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom';
 class BrowserSpeech extends React.Component {
   render() {
     return (
-      <div>
+      <div className="main">
         <Header />
         <Synthesiser />
       </div>
@@ -21,7 +21,7 @@ class Synthesiser extends React.Component {
   render() {
     return (
       <form>
-        Enter message and push play button.
+        <h4 className="description">Enter message and push play button.</h4>
         <Message />
         <Range name="Rate"/>
         <Range name="Pitch"/>
@@ -58,7 +58,7 @@ class VoiceSelect extends React.Component {
     return (
       <div className="form-group">
         <label htmlFor="voice"> Voice </label>
-        <select>
+        <select className="form-control" id="voice">
           <option>voice supported by your browser</option>
         </select>
       </div>
@@ -69,7 +69,7 @@ class PlayButton extends React.Component {
   render() {
     return (
       <div className="form-group">
-        <button className="form-control" type="submit">Play</button>
+        <button className="btn btn-lg btn-primary" type="submit">Play</button>
       </div>
     );
   }
