@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import Speaker from './Speaker';
 
 class BrowserSpeech extends React.Component {
   render() {
@@ -21,13 +22,13 @@ class Synthesiser extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      mesasge: '',
+      message: '',
       rate: 1,
       pitch: 1,
-      voice: '',
+      voice: null
     };
-    const synth = window.speechSynthesis;
-    this.voices = synth.getVoices();
+    this.speaker = new Speaker();
+    this.voices = this.speaker.getVoices();
   }
 
   handleMessageChange(e) {
@@ -48,7 +49,12 @@ class Synthesiser extends React.Component {
   }
   handleSubmit(e) {
     e.preventDefault();
-    console.log('submit');
+    this.speaker.speak(
+      this.state.message,
+      this.state.rate,
+      this.state.pitch,
+      this.state.voice,
+    );
   }
 
   render() {
@@ -94,7 +100,7 @@ class Range extends React.Component {
     const value = this.props.value;
     return (
       <div className="form-group">
-        <label htmlFor={name}> {name} </label> {value}
+        <label htmlFor={name}> {name} </label> : {value}
         <input type="range" id={name} min={min} max={max} step={step} value={value} className="form-control"
           onChange={(e) => this.props.onRangeChange(e)}/>
       </div>
