@@ -18,14 +18,28 @@ function Header(props) {
 }
 
 class Synthesiser extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      mesasge: '',
+      rate: 1,
+      pitch: 1,
+      voice: '',
+    };
+  }
+
+  componentDidMount() {
+    this.voices = undefined; // TODO fetch voices and setState voice
+  }
+
   render() {
     return (
       <form>
-        <h4 className="description">Enter message and push play button.</h4>
-        <Message />
-        <Range name="Rate"/>
-        <Range name="Pitch"/>
-        <VoiceSelect />
+        <h4 className="lead description">Enter message and push play button.</h4>
+        <Message message={this.state.message} />
+        <Range name="Rate"  min="0.5" max="2" step="0.1" value={this.state.rate} />
+        <Range name="Pitch" min="0"   max="2 "step="0.1" value={this.state.pitch} />
+        <VoiceSelect voices={this.voices} voice={this.state.voice} />
         <PlayButton />
       </form>
     );
@@ -45,10 +59,14 @@ class Message extends React.Component {
 class Range extends React.Component {
   render() {
     const name = this.props.name;
+    const min = this.props.min;
+    const max = this.props.max;
+    const step = this.props.step;
+    const value = this.props.value;
     return (
       <div className="form-group">
-        <label htmlFor={name}> {name} </label>
-        <input type="range" id={name} className="form-control" />
+        <label htmlFor={name}> {name} </label> {value}
+        <input type="range" id={name} min={min} max={max} step={step} value={value} className="form-control" />
       </div>
     );
   }
