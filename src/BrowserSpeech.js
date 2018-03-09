@@ -44,10 +44,14 @@ class Synthesiser extends React.Component {
     e.preventDefault();
     this.setState({pitch: [e.target.value]});
   }
+  handleSubmit(e) {
+    e.preventDefault();
+    console.log('submit');
+  }
 
   render() {
     return (
-      <form>
+      <form onSubmit={(e) => this.handleSubmit(e)}>
         <h4 className="lead description">Enter message and push play button.</h4>
 
         <Message
