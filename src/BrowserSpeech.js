@@ -26,23 +26,25 @@ class Synthesiser extends React.Component {
       pitch: 1,
       voice: '',
     };
-  }
-
-  componentDidMount() {
-    this.voices = undefined; // TODO fetch voices and setState voice
+    const synth = window.speechSynthesis;
+    this.voices = synth.getVoices();
   }
 
   handleMessageChange(e) {
     e.preventDefault();
-    this.setState({message: [e.target.value]});
+    this.setState({message: e.target.value});
   }
   handleRateChange(e) {
     e.preventDefault();
-    this.setState({rate: [e.target.value]});
+    this.setState({rate: e.target.value});
   }
   handlePitchChange(e) {
     e.preventDefault();
-    this.setState({pitch: [e.target.value]});
+    this.setState({pitch: e.target.value});
+  }
+  handleVoiceChange(e) {
+    e.preventDefault();
+    this.setState({voice: e.target.value});
   }
   handleSubmit(e) {
     e.preventDefault();
@@ -62,7 +64,8 @@ class Synthesiser extends React.Component {
         <Range
           name="Pitch" min="0"   max="2" step="0.1" value={this.state.pitch}
           onRangeChange={(e) => this.handlePitchChange(e)} />
-        <VoiceSelect voices={this.voices} voice={this.state.voice} />
+        <VoiceSelect voices={this.voices} voice={this.state.voice} 
+          onVoiceChange={(e) => this.handleVoiceChange(e)}/>
         <PlayButton />
       </form>
     );
@@ -100,11 +103,14 @@ class Range extends React.Component {
 }
 class VoiceSelect extends React.Component {
   render() {
+    const voices = this.props.voices.map((voice) => {
+      return <option value={voice} key={voice.name}>{voice.name} ({voice.lang})</option>
+    });
     return (
       <div className="form-group">
         <label htmlFor="voice"> Voice </label>
-        <select className="form-control" id="voice">
-          <option>voice supported by your browser</option>
+        <select className="form-control" id="voice" onChange={(e) => this.props.onVoiceChange(e)}>
+          {voices}
         </select>
       </div>
     );
