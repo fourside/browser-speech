@@ -10,11 +10,12 @@ export default class Synthesiser extends React.Component {
   constructor(props) {
     super(props);
     this.speaker = new Speaker();
+    const voiceName = this.speaker.getVoices()[0].name;
     this.state = {
       message: '',
       rate: 1,
       pitch: 1,
-      voiceName: '',
+      voiceName: voiceName,
     };
   }
 
@@ -34,7 +35,7 @@ export default class Synthesiser extends React.Component {
     e.preventDefault();
     this.setState({voiceName: e.target.value});
   }
-  handleSubmit(e) {
+  handlePlayClick(e) {
     e.preventDefault();
     const voice = this.speaker.getVoice(this.state.voiceName);
     this.speaker.speak(
@@ -47,7 +48,7 @@ export default class Synthesiser extends React.Component {
 
   render() {
     return (
-      <form onSubmit={(e) => this.handleSubmit(e)}>
+      <form>
         <h4 className="lead description">Enter message and push play button.</h4>
 
         <Message
@@ -60,7 +61,8 @@ export default class Synthesiser extends React.Component {
           onRangeChange={(e) => this.handlePitchChange(e)} />
         <VoiceSelect speaker={this.speaker} value={this.state.voiceName} 
           onVoiceChange={(e) => this.handleVoiceChange(e)}/>
-        <PlayButton />
+        <PlayButton 
+          onPlayClick={(e) => this.handlePlayClick(e)}/>
       </form>
     );
   }
