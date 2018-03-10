@@ -28,7 +28,7 @@ export default class Speaker {
   }
 
   getVoice(voiceName :string) {
-    let answer;
+    let answer: ?Class<window.SpeechSynthesisVoice>;
     this.getVoices().some((voice) => {
       const ret = (voice.name === voiceName);
       if (ret) {
@@ -39,7 +39,7 @@ export default class Speaker {
     return answer;
   }
 
-  speak(text: string, rate: number, pitch: number, voice: Class<window.SpeechSynthesisVoice>): void {
+  speak(text: string, rate: number, pitch: number, voice: ?Class<window.SpeechSynthesisVoice>): void {
     if (this.synth.speaking) {
         return;
     }

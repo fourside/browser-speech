@@ -1,12 +1,28 @@
+// @flow
 import React from 'react';
 
 import Message from './Message';
 import Range from './Range';
 import VoiceSelect from './VoiceSelect';
 import PlayButton from './PlayButton';
+import Speaker from '../util/Speaker';
 
-export default class Synthesiser extends React.Component {
-  constructor(props) {
+type Props = {
+  speaker: Speaker
+};
+type State = {
+  message: string,
+  rate: number,
+  pitch: number,
+  voiceName: string,
+  isSpeaking: boolean,
+  isPending: boolean,
+};
+
+export default class Synthesiser extends React.Component<Props, State> {
+  speaker: Speaker;
+
+  constructor(props: Props) {
     super(props);
     this.speaker = this.props.speaker;
     this.speaker.setOnUttrEvent(() => {
@@ -22,23 +38,33 @@ export default class Synthesiser extends React.Component {
     };
   }
 
-  handleMessageChange(e) {
+  handleMessageChange(e: Event) {
     e.preventDefault();
-    this.setState({message: e.target.value});
+    if (e.target instanceof HTMLInputElement) {
+      this.setState({message: e.target.value});
+    }
   }
-  handleRateChange(e) {
+  handleRateChange(e: Event) {
     e.preventDefault();
-    this.setState({rate: e.target.value});
+    if (e.target instanceof HTMLInputElement) {
+      const value = parseInt(e.target.value, 10);
+      this.setState({rate: value});
+    }
   }
-  handlePitchChange(e) {
+  handlePitchChange(e: Event) {
     e.preventDefault();
-    this.setState({pitch: e.target.value});
+    if (e.target instanceof HTMLInputElement) {
+      const value = parseInt(e.target.value, 10);
+      this.setState({pitch: value});
+    }
   }
-  handleVoiceChange(e) {
+  handleVoiceChange(e: Event) {
     e.preventDefault();
-    this.setState({voiceName: e.target.value});
+    if (e.target instanceof HTMLInputElement) {
+      this.setState({voiceName: e.target.value});
+    }
   }
-  handlePlayClick(e) {
+  handlePlayClick(e: Event) {
     const voice = this.speaker.getVoice(this.state.voiceName);
     this.speaker.speak(
       this.state.message,
@@ -48,7 +74,7 @@ export default class Synthesiser extends React.Component {
     );
     this.setSpeakerState();
   }
-  handleCancelClick(e) {
+  handleCancelClick(e: Event) {
     this.speaker.cancel();
     this.setSpeakerState();
   }
@@ -70,10 +96,10 @@ export default class Synthesiser extends React.Component {
         <Message
           message={this.state.message} onMessageChange={(e) => this.handleMessageChange(e)} />
         <Range
-          name="Rate"  min="0.5" max="2" step="0.1" value={this.state.rate}
+          name="Rate"  min={0.5} max={2} step={0.1} value={this.state.rate}
           onRangeChange={(e) => this.handleRateChange(e)} />
         <Range
-          name="Pitch" min="0"   max="2" step="0.1" value={this.state.pitch}
+          name="Pitch" min={0}  max={2} step={0.1} value={this.state.pitch}
           onRangeChange={(e) => this.handlePitchChange(e)} />
         <VoiceSelect speaker={this.speaker} value={this.state.voiceName} 
           onVoiceChange={(e) => this.handleVoiceChange(e)}/>
