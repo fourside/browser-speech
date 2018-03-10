@@ -6,3 +6,5 @@ Type what you want your browser to speak and push 'play' button, then your brows
 ## supported browser
 - [Can I use... Support tables for HTML5, CSS3, etc](https://caniuse.com/#feat=speech-synthesis)
 
+## demo
+see [Browser Speech](https://fourside.github.io/browser-speech/)
