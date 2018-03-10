@@ -1,5 +1,10 @@
+// @flow
 
 export default class Speaker {
+  onUttrEvent: () => void;
+  synth: Class<window.SpeechSynthesis>;
+  voices: Array<Class<window.SpeechSynthesisVoice>>;
+
   constructor() {
     this.synth = window.speechSynthesis;
     if (this.synth === undefined) {
@@ -14,15 +19,15 @@ export default class Speaker {
     }
   }
 
-  isSupported() {
+  isSupported(): boolean {
     return this.synth !== undefined;
   }
 
-  getVoices() {
+  getVoices(): Array<Class<window.SpeechSynthesisVoice>> {
     return this.voices;
   }
 
-  getVoice(voiceName) {
+  getVoice(voiceName :string) {
     let answer;
     this.getVoices().some((voice) => {
       const ret = (voice.name === voiceName);
@@ -34,11 +39,11 @@ export default class Speaker {
     return answer;
   }
 
-  speak(text, rate, pitch, voice) {
+  speak(text: string, rate: number, pitch: number, voice: Class<window.SpeechSynthesisVoice>): void {
     if (this.synth.speaking) {
         return;
     }
-    const utter = new SpeechSynthesisUtterance(text);
+    const utter: Class<window.SpeechSynthesisUtterance> = new window.SpeechSynthesisUtterance(text);
     utter.pitch = pitch;
     utter.rate = rate;
     utter.voice = voice;
@@ -52,15 +57,15 @@ export default class Speaker {
     this.synth.cancel();
   }
 
-  isSpeaking() {
+  isSpeaking(): boolean {
     return this.synth.speaking;
   }
 
-  isPending() {
+  isPending(): boolean {
     return this.synth.pending;
   }
 
-  setOnUttrEvent(cb) {
+  setOnUttrEvent(cb: ()=> void) {
     this.onUttrEvent = cb;
   }
 }
