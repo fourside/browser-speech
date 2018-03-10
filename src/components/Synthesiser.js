@@ -13,12 +13,11 @@ export default class Synthesiser extends React.Component {
     this.speaker.setOnUttrEvent(() => {
       this.setSpeakerState();
     });
-    const voiceName = this.speaker.getVoices()[0].name;
     this.state = {
       message: '',
       rate: 1,
       pitch: 1,
-      voiceName: voiceName,
+      voiceName: '',
       isSpeaking: false,
       isPending: false,
     };
