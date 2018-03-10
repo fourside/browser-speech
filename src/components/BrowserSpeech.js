@@ -1,14 +1,13 @@
+// @flow
+
 import React from 'react';
-import ReactDOM from 'react-dom';
 
 import Speaker from '../util/Speaker';
 import Synthesiser from './Synthesiser';
 
-class BrowserSpeech extends React.Component {
-  constructor(props) {
-    super(props);
-    this.speaker = new Speaker();
-  }
+export default class BrowserSpeech extends React.Component<{}> {
+  speaker: Speaker = new Speaker();
+
   render() {
     let mainElement;
     if (this.speaker.isSupported()) {
@@ -40,10 +39,3 @@ function NotSupported(props) {
   );
 }
 
-
-export default function() {
-  ReactDOM.render(
-    <BrowserSpeech />,
-    document.getElementById('root')
-  );
-}

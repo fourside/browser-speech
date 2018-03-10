@@ -1,6 +1,12 @@
+// @flow
 import React from 'react';
 
-export default class Message extends React.Component {
+type Props = {
+  message: string,
+  onMessageChange: (x: SyntheticEvent<HTMLTextAreaElement>) => void,
+};
+
+export default class Message extends React.Component<Props> {
   render() {
     const message = this.props.message;
     return (

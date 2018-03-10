@@ -1,6 +1,16 @@
+// @flow
 import React from 'react';
 
-export default class Range extends React.Component {
+type Props = {
+  name: string,
+  min: number,
+  max: number,
+  step: number,
+  value: number,
+  onRangeChange: (e: SyntheticEvent<HTMLInputElement>) => void
+};
+
+export default class Range extends React.Component<Props> {
   render() {
     const name = this.props.name;
     const min = this.props.min;

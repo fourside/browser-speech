@@ -1,6 +1,14 @@
+// @flow
 import React from 'react';
+import Speaker from '../util/Speaker';
 
-export default class VoiceSelect extends React.Component {
+type Props = {
+  value: string,
+  speaker: Speaker,
+  onVoiceChange: (e: SyntheticEvent<HTMLSelectElement>) => void
+};
+
+export default class VoiceSelect extends React.Component<Props> {
 
   render() {
     const voices = this.props.speaker.getVoices().map((voice) => {
