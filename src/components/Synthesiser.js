@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Speaker from './Speaker';
+import Speaker from '../util/Speaker';
 import Message from './Message';
 import Range from './Range';
 import VoiceSelect from './VoiceSelect';
