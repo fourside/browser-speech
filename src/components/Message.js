@@ -7,6 +7,14 @@ type Props = {
 };
 
 export default class Message extends React.Component<Props> {
+  messageArea: ?HTMLTextAreaElement;
+
+  componentDidMount() {
+    if (this.messageArea) {
+      this.messageArea.focus();
+    }
+  }
+
   render() {
     const message = this.props.message;
     return (
@@ -14,6 +22,7 @@ export default class Message extends React.Component<Props> {
         <label htmlFor="message"> Message </label>
           <textarea id="message" className="form-control" placeholder="type what you want to let me say" 
             value={message} onChange={(e) => this.props.onMessageChange(e)}
+            ref={(textarea) => {this.messageArea = textarea;}}
           />
       </div>
     );
