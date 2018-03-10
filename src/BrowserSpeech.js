@@ -21,14 +21,13 @@ function Header(props) {
 class Synthesiser extends React.Component {
   constructor(props) {
     super(props);
+    this.speaker = new Speaker();
     this.state = {
       message: '',
       rate: 1,
       pitch: 1,
-      voice: null
+      voiceName: '',
     };
-    this.speaker = new Speaker();
-    this.voices = this.speaker.getVoices();
   }
 
   handleMessageChange(e) {
@@ -45,15 +44,16 @@ class Synthesiser extends React.Component {
   }
   handleVoiceChange(e) {
     e.preventDefault();
-    this.setState({voice: e.target.value});
+    this.setState({voiceName: e.target.value});
   }
   handleSubmit(e) {
     e.preventDefault();
+    const voice = this.speaker.getVoice(this.state.voiceName);
     this.speaker.speak(
       this.state.message,
       this.state.rate,
       this.state.pitch,
-      this.state.voice,
+      voice,
     );
   }
 
@@ -70,7 +70,7 @@ class Synthesiser extends React.Component {
         <Range
           name="Pitch" min="0"   max="2" step="0.1" value={this.state.pitch}
           onRangeChange={(e) => this.handlePitchChange(e)} />
-        <VoiceSelect voices={this.voices} voice={this.state.voice} 
+        <VoiceSelect speaker={this.speaker} value={this.state.voiceName} 
           onVoiceChange={(e) => this.handleVoiceChange(e)}/>
         <PlayButton />
       </form>
@@ -108,14 +108,16 @@ class Range extends React.Component {
   }
 }
 class VoiceSelect extends React.Component {
+
   render() {
-    const voices = this.props.voices.map((voice) => {
-      return <option value={voice} key={voice.name}>{voice.name} ({voice.lang})</option>
+    const voices = this.props.speaker.getVoices().map((voice) => {
+      return <option value={voice.name} key={voice.name}>{voice.name} ({voice.lang})</option>
     });
+    const value = this.props.value;
     return (
       <div className="form-group">
         <label htmlFor="voice"> Voice </label>
-        <select className="form-control" id="voice" onChange={(e) => this.props.onVoiceChange(e)}>
+        <select className="form-control" id="voice" value={value} onChange={(e) => this.props.onVoiceChange(e)}>
           {voices}
         </select>
       </div>
