@@ -2,6 +2,7 @@
   "name": "browser-speech",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://fourside.github.io/browser-speech/",
   "dependencies": {
     "bootstrap": "^4.0.0",
     "react": "^16.2.0",
