@@ -1,6 +1,5 @@
 import React from 'react';
 
-import Speaker from '../util/Speaker';
 import Message from './Message';
 import Range from './Range';
 import VoiceSelect from './VoiceSelect';
@@ -9,7 +8,7 @@ import PlayButton from './PlayButton';
 export default class Synthesiser extends React.Component {
   constructor(props) {
     super(props);
-    this.speaker = new Speaker();
+    this.speaker = this.props.speaker;
     this.speaker.setOnUttrEvent(() => {
       this.setSpeakerState();
     });
