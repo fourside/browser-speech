@@ -42,6 +42,25 @@ export default class Speaker {
     utter.pitch = pitch;
     utter.rate = rate;
     utter.voice = voice;
+    if (this.onUttrEvent) {
+      utter.onend = this.onUttrEvent;
+    }
     this.synth.speak(utter);
+  }
+
+  cancel() {
+    this.synth.cancel();
+  }
+
+  isSpeaking() {
+    return this.synth.speaking;
+  }
+
+  isPending() {
+    return this.synth.pending;
+  }
+
+  setOnUttrEvent(cb) {
+    this.onUttrEvent = cb;
   }
 }

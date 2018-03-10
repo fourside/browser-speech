@@ -10,12 +10,17 @@ export default class Synthesiser extends React.Component {
   constructor(props) {
     super(props);
     this.speaker = new Speaker();
+    this.speaker.setOnUttrEvent(() => {
+      this.setSpeakerState();
+    });
     const voiceName = this.speaker.getVoices()[0].name;
     this.state = {
       message: '',
       rate: 1,
       pitch: 1,
       voiceName: voiceName,
+      isSpeaking: false,
+      isPending: false,
     };
   }
 
@@ -36,7 +41,6 @@ export default class Synthesiser extends React.Component {
     this.setState({voiceName: e.target.value});
   }
   handlePlayClick(e) {
-    e.preventDefault();
     const voice = this.speaker.getVoice(this.state.voiceName);
     this.speaker.speak(
       this.state.message,
@@ -44,9 +48,23 @@ export default class Synthesiser extends React.Component {
       this.state.pitch,
       voice,
     );
+    this.setSpeakerState();
+  }
+  handleCancelClick(e) {
+    this.speaker.cancel();
+    this.setSpeakerState();
+  }
+
+  setSpeakerState() {
+    this.setState({
+      isSpeaking: this.speaker.isSpeaking(),
+      isPending: this.speaker.isPending(),
+    })
   }
 
   render() {
+    const isPending = this.state.isPending;
+    const isSpeaking = this.state.isSpeaking;
     return (
       <form>
         <h4 className="lead description">Enter message and push play button.</h4>
@@ -61,8 +79,14 @@ export default class Synthesiser extends React.Component {
           onRangeChange={(e) => this.handlePitchChange(e)} />
         <VoiceSelect speaker={this.speaker} value={this.state.voiceName} 
           onVoiceChange={(e) => this.handleVoiceChange(e)}/>
-        <PlayButton 
-          onPlayClick={(e) => this.handlePlayClick(e)}/>
+        <div className="form-group">
+          <PlayButton label="Play"
+            disabled={isPending || isSpeaking}
+            onPlayClick={(e) => this.handlePlayClick(e)}/>
+          <PlayButton label="Cancel"
+            disabled={!(isSpeaking || isPending)}
+            onPlayClick={(e) => this.handleCancelClick(e)}/>
+        </div>
       </form>
     );
   }
