@@ -7,7 +7,7 @@ type Props = {
   max: number,
   step: number,
   value: number,
-  onRangeChange: (e: Event) => void
+  onRangeChange: (e: SyntheticEvent<HTMLInputElement>) => void
 };
 
 export default class Range extends React.Component<Props> {

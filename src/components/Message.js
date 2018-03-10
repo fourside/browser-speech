@@ -3,7 +3,7 @@ import React from 'react';
 
 type Props = {
   message: string,
-  onMessageChange: (x: Event) => void,
+  onMessageChange: (x: SyntheticEvent<HTMLTextAreaElement>) => void,
 };
 
 export default class Message extends React.Component<Props> {

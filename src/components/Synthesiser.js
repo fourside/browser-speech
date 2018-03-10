@@ -38,31 +38,23 @@ export default class Synthesiser extends React.Component<Props, State> {
     };
   }
 
-  handleMessageChange(e: Event) {
+  handleMessageChange(e: SyntheticEvent<HTMLTextAreaElement>) {
     e.preventDefault();
-    if (e.target instanceof HTMLInputElement) {
-      this.setState({message: e.target.value});
-    }
+    this.setState({message: e.currentTarget.value});
   }
-  handleRateChange(e: Event) {
+  handleRateChange(e: SyntheticEvent<HTMLInputElement>) {
     e.preventDefault();
-    if (e.target instanceof HTMLInputElement) {
-      const value = parseInt(e.target.value, 10);
-      this.setState({rate: value});
-    }
+    const value = parseFloat(e.currentTarget.value);
+    this.setState({rate: value});
   }
-  handlePitchChange(e: Event) {
+  handlePitchChange(e: SyntheticEvent<HTMLInputElement>) {
     e.preventDefault();
-    if (e.target instanceof HTMLInputElement) {
-      const value = parseInt(e.target.value, 10);
-      this.setState({pitch: value});
-    }
+    const value = parseFloat(e.currentTarget.value);
+    this.setState({pitch: value});
   }
-  handleVoiceChange(e: Event) {
+  handleVoiceChange(e: SyntheticEvent<HTMLSelectElement>) {
     e.preventDefault();
-    if (e.target instanceof HTMLInputElement) {
-      this.setState({voiceName: e.target.value});
-    }
+    this.setState({voiceName: e.currentTarget.value});
   }
   handlePlayClick(e: Event) {
     const voice = this.speaker.getVoice(this.state.voiceName);

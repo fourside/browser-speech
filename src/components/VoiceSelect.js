@@ -5,7 +5,7 @@ import Speaker from '../util/Speaker';
 type Props = {
   value: string,
   speaker: Speaker,
-  onVoiceChange: (e: Event) => void
+  onVoiceChange: (e: SyntheticEvent<HTMLSelectElement>) => void
 };
 
 export default class VoiceSelect extends React.Component<Props> {
