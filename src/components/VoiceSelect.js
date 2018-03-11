@@ -10,7 +10,7 @@ type Props = {
 
 export default class VoiceSelect extends React.Component<Props> {
 
-  shouldComponentUpdate(nextProps) {
+  shouldComponentUpdate(nextProps: Props) {
     return this.props.value !== nextProps.value;
   }
 

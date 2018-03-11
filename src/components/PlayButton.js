@@ -9,7 +9,7 @@ type Props = {
 
 export default class PlayButton extends React.Component<Props> {
 
-  shouldComponentUpdate(nextProps) {
+  shouldComponentUpdate(nextProps: Props) {
     return this.props.disabled !== nextProps.disabled;
   }
 
