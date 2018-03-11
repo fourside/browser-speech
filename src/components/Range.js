@@ -11,6 +11,11 @@ type Props = {
 };
 
 export default class Range extends React.Component<Props> {
+
+  shouldComponentUpdate(nextProps) {
+    return this.props.value !== nextProps.value;
+  }
+
   render() {
     const name = this.props.name;
     const min = this.props.min;

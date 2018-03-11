@@ -10,6 +10,10 @@ type Props = {
 
 export default class VoiceSelect extends React.Component<Props> {
 
+  shouldComponentUpdate(nextProps) {
+    return this.props.value !== nextProps.value;
+  }
+
   render() {
     const voices = this.props.speaker.getVoices().map((voice) => {
       return <option value={voice.name} key={voice.name}>{voice.name} ({voice.lang})</option>

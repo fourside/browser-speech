@@ -8,6 +8,11 @@ type Props = {
 };
 
 export default class PlayButton extends React.Component<Props> {
+
+  shouldComponentUpdate(nextProps) {
+    return this.props.disabled !== nextProps.disabled;
+  }
+
   render() {
     return (
       <button className="btn btn-lg btn-primary btn-play" type="button"

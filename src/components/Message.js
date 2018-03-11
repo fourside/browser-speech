@@ -15,6 +15,10 @@ export default class Message extends React.Component<Props> {
     }
   }
 
+  shouldComponentUpdate(nextProps) {
+    return this.props.message !== nextProps.message;
+  }
+
   render() {
     const message = this.props.message;
     return (
