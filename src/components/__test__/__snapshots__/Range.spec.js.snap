@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Range should be rendered without crashing. 1`] = `
+<div
+  className="form-group"
+>
+  <label
+    htmlFor="test"
+  >
+     
+    test
+     
+  </label>
+   : 
+  1
+  <input
+    className="form-control"
+    id="test"
+    max={2}
+    min={0}
+    onChange={[Function]}
+    step={0.5}
+    type="range"
+    value={1}
+  />
+</div>
+`;

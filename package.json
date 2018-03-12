@@ -19,6 +19,7 @@
   },
   "devDependencies": {
     "flow-bin": "^0.67.1",
+    "react-test-renderer": "^16.2.0",
     "serve": "^6.5.2"
   }
 }

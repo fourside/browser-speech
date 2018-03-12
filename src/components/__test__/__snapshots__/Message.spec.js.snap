@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Message should be rendered without crashing. 1`] = `
+<div
+  className="form-group"
+>
+  <label
+    htmlFor="message"
+  >
+     Message 
+  </label>
+  <textarea
+    className="form-control"
+    id="message"
+    onChange={[Function]}
+    placeholder="type what you want to let me say"
+    value="test"
+  />
+</div>
+`;
