@@ -17,6 +17,7 @@ type State = {
   voiceName: string,
   isSpeaking: boolean,
   isPending: boolean,
+  voices: Array<Class<window.SpeechSynthesisVoice>>,
 };
 
 export default class Synthesiser extends React.Component<Props, State> {
@@ -35,6 +36,7 @@ export default class Synthesiser extends React.Component<Props, State> {
       voiceName: '',
       isSpeaking: false,
       isPending: false,
+      voices: [],
     };
   }
 
@@ -78,6 +80,16 @@ export default class Synthesiser extends React.Component<Props, State> {
     })
   }
 
+  componentWillMount() {
+    const intervalId = setInterval(() => {
+      const voices = this.speaker.getVoices();
+      if (voices.length !== 0) {
+        this.setState({voices: voices});
+        clearInterval(intervalId);
+      }
+    }, 100);
+  }
+
   render() {
     const isPending = this.state.isPending;
     const isSpeaking = this.state.isSpeaking;
@@ -93,7 +105,7 @@ export default class Synthesiser extends React.Component<Props, State> {
         <Range
           name="Pitch" min={0}  max={2} step={0.1} value={this.state.pitch}
           onRangeChange={(e) => this.handlePitchChange(e)} />
-        <VoiceSelect voices={this.speaker.getVoices()} value={this.state.voiceName}
+        <VoiceSelect voices={this.state.voices} value={this.state.voiceName}
           onVoiceChange={(e) => this.handleVoiceChange(e)}/>
         <div className="form-group">
           <PlayButton label="Play"
