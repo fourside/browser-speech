@@ -10,7 +10,6 @@ export default class Speaker {
     if (this.synth === undefined) {
       return;
     }
-
     this.voices = this.synth.getVoices();
     if (this.synth.onvoiceschanged !== undefined) {
       this.synth.onvoiceschanged =  () => {

@@ -93,7 +93,7 @@ export default class Synthesiser extends React.Component<Props, State> {
         <Range
           name="Pitch" min={0}  max={2} step={0.1} value={this.state.pitch}
           onRangeChange={(e) => this.handlePitchChange(e)} />
-        <VoiceSelect speaker={this.speaker} value={this.state.voiceName} 
+        <VoiceSelect voices={this.speaker.getVoices()} value={this.state.voiceName}
           onVoiceChange={(e) => this.handleVoiceChange(e)}/>
         <div className="form-group">
           <PlayButton label="Play"

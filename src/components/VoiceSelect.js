@@ -1,21 +1,20 @@
 // @flow
 import React from 'react';
-import Speaker from '../util/Speaker';
 
 type Props = {
   value: string,
-  speaker: Speaker,
+  voices: Array<Class<window.SpeechSynthesisVoice>>,
   onVoiceChange: (e: SyntheticEvent<HTMLSelectElement>) => void
 };
 
 export default class VoiceSelect extends React.Component<Props> {
 
   shouldComponentUpdate(nextProps: Props) {
-    return this.props.value !== nextProps.value;
+    return this.props.value !== nextProps.value || this.props.voices.length !== nextProps.voices.length;
   }
 
   render() {
-    const voices = this.props.speaker.getVoices().map((voice) => {
+    const voices = this.props.voices.map((voice) => {
       return <option value={voice.name} key={voice.name}>{voice.name} ({voice.lang})</option>
     });
     const value = this.props.value;
